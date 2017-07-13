@@ -2,193 +2,239 @@
 <html lang="en-US">
 <link rel="stylesheet" href="css/common.css">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
 <body ng-app="myApp" ng-controller="myCtrl">
-<div class="container">
-	<div>date <input readonly=readonly/></div>
-	<div>Voucher Number<input class="form-control" type="text"></div>
-	<div>Invoice Number:<input type="text" readonly=readonly class="form-control"></div>
-    <div>Supplier
-    	<select name="supplierId" ng-model="selSupplier" ng-change="getSupplierById()" class="form-control">
-    		<option value="0">Select</option>
-    		<option value="50408">KUNNATHAN CHIP BOARDS PVT .LTD</option>
-    	</select>
-    	<div>Address:{{supplierData.supplierStreet }}</div>
-    	<div>{{supplierData.supplierCity}}</div>
-    	<div>
-    	<select ng-model="supplierData.supplierState" ng-init="0" class="form-control">
+  <div class="container">
+
+
+    <div class="row form-group">
+	    <div class="col-xs-4">
+	    	<label for="">Date</label>
+		    <input readonly=readonly/ type="text" class="form-control">
+	    </div>
+	    
+	    <div class="col-xs-4">
+		    <label for="">Voucher Number</label>
+		    <input class="form-control" type="text">
+	    </div>
+
+	    <div class="col-xs-4">
+	    	<label for="">Invoice Number</label>
+	    	<input type="text" readonly=readonly class="form-control">
+	  	</div>
+  	</div>
+
+    <div class="row form-group">
+	    <div class="col-xs-4">
+	    	<label for="">Supplier</label>
+	      <select name="supplierId" ng-model="selSupplier" ng-change="getSupplierById()" class="form-control">
+	    		<option value="0">Select</option>
+	    		<option value="50408">KUNNATHAN CHIP BOARDS PVT .LTD</option>
+	    	</select>
+	  	</div>
+
+      <div class="col-xs-4">
+	      <label for="">Address</label>
+	      <div class="form-control">{{supplierData.supplierStreet }}</div>
+      </div>
+
+			<div class="col-xs-4">
+				<label for="">Supplier City</label>
+	      <div class="form-control">{{supplierData.supplierCity}}</div>
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-xs-4">
+	      <label for="">State</label>
+        <select ng-model="supplierData.supplierState" ng-init="0" class="form-control">
     		<option value="0">Select</option>
     		<option value="32">Kerala - 32</option>
     	</select>
-    	</div>
-    	<div>{{supplierData.supplierPincode}}</div>
-    	<div>GSTIN:{{supplierData.supplierTin}}</div>
-    	<div>Interstate:{{supplierData.supplierIS}}</div>
-    	</div>
+      </div>
 
-	<div>
+      <div class="col-xs-4">
+      	<label for="">Supplier Pincode</label>
+	      <div class="form-control">{{supplierData.supplierPincode}}</div>
+      </div>
 
-		<table class="table">
-			<tr>
-				<td>SI</td>
-				<td>code</td>
-				<td>name</td>
-				<td>unit</td>
-				<td>price level</td>
-				<td>Qty</td>
-				<td>amount</td>
-				<td>CGST</td>
-				<td>amount</td>
-				<td>SGST</td>
-				<td>amount</td>
-				<td>IGST</td>
-				<td>amount</td>
-				<td>Total</td>
-				<td></td>
-			</tr>
+      <div class="col-xs-4">
+      	<label for="">GSTIN</label>
+	      <div class="form-control">{{supplierData.supplierTin}}</div>
+      </div>
+    </div>
 
-			<tr ng-repeat="x in prodData">
-				<td>{{$index+1}}</td>
-				<td>{{ x.productCode }}</td>
-				<td>{{ x.productName }}</td>
-				<td>
-					<select ng-model="x.unitData"  ng-change="calculateTotal(x)" class="form-control">
+		<div class="row form-group">
+      <div class="col-xs-4">
+      	<label for="">Interstate</label>
+	      <div class="form-control">{{supplierData.supplierIS}}</div>
+      </div>
+    </div>
+
+
+
+    <div>
+      <table class="table">
+        <tr>
+          <th>SI</th>
+          <th>code</th>
+          <th>name</th>
+          <th>unit</th>
+          <th>price level</th>
+          <th>Qty</th>
+          <th>amount</th>
+          <th>CGST</th>
+          <th>amount</th>
+          <th>SGST</th>
+          <th>amount</th>
+          <th>IGST</th>
+          <th>amount</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+
+        <tr ng-repeat="x in prodData">
+          <td>{{$index+1}}</td>
+          <td>{{ x.productCode }}</td>
+          <td>{{ x.productName }}</td>
+          <td>
+            <select ng-model="x.unitData" ng-change="calculateTotal(x)" class="form-control">
 							<option value="5">Pc(s)</option>
 							<option value="6">Sq.feet</option>
 							<option value="7">SQ.MTR</option>
 					</select>
-				</td>
-				<td>
-					<select ng-model="x.prodprice" ng-init="x.prodprice" ng-change="calculateTotal(x)" class="form-control">
+          </td>
+          <td>
+            <select ng-model="x.prodprice" ng-init="x.prodprice" ng-change="calculateTotal(x)" class="form-control">
 							<option value="0">Select</option>
 							<option ng-repeat="pl in x.priceList" value="{{pl.priceAmount}}">{{pl.priceName}}</option>
 					</select>
-				</td>
-				<td><input ng-model="x.qty" ng-change="calculateTotal(x)" style="width: 36px" class="form-control"></td>
-				<td><input readonly=readonly style="width: 65px" value="{{x.amount | currency:'': 2}}" class="form-control"></td>
-				<td>{{x.cgstp + '%'}}</td>
-				<td><input value="{{x.cgstv | currency:'': 2}}" readonly=readonly style="width: 65px" class="form-control" ></td>
-				<td>{{x.sgstp+ '%'}}</td>
-				<td><input  value="{{x.sgstv | currency:'': 2}}" readonly=readonly style="width: 65px" class="form-control"></td>
-				<td>{{x.igstp + '%'}}</td>
-				<td><input  value="{{x.igstv | currency:'': 2}}" readonly=readonly style="width: 65px" class="form-control"></td>
-				<td><input ng-default="0.00" readonly=readonly style="width: 65px;text-align:right;" value="{{x.total | currency:'': 2}}"></td>
-				<input ng-model="x.cgstp" type="hidden">
-				<input ng-model="x.sgstp" type="hidden">
-				<input ng-model="x.igstp" type="hidden">
-				<input ng-model="x.cgstd" type="hidden">
-				<input ng-model="x.sgstd" type="hidden">
-				<input ng-model="x.igstd" type="hidden">
-				<td><input type="button" value="Remove" ng-click="removeProduct($index)" class="btn btn-danger"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input ng-model="searchCode" ng-keyup="searchEvent($event)" ng-paste="onPasteEvent($event)" class="form-control"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td colspan="14" style="text-align:right;">Total</td>
-				<td><input value="{{prodtotal | currency:'': 2}}" ng-default="0" readonly=readonly style="width: 65px;text-align:right;" class="form-control"></td>
-			</tr>			
-		</table>
-	</div>
-	
-	<div>
-		<table>
-			<tr>
-				<td colspan="2">Freight Details</td>
-			</tr>
-			<tr>
-				<td>Mode</td>
-				<td>
-				<select class="form-control">
+          </td>
+          <td><input ng-model="x.qty" ng-change="calculateTotal(x)" style="width: 36px" class="form-control"></td>
+          <td><input readonly=readonly style="width: 65px" value="{{x.amount | currency:'': 2}}" class="form-control"></td>
+          <td>{{x.cgstp + '%'}}</td>
+          <td><input value="{{x.cgstv | currency:'': 2}}" readonly=readonly style="width: 65px" class="form-control"></td>
+          <td>{{x.sgstp+ '%'}}</td>
+          <td><input value="{{x.sgstv | currency:'': 2}}" readonly=readonly style="width: 65px" class="form-control"></td>
+          <td>{{x.igstp + '%'}}</td>
+          <td><input value="{{x.igstv | currency:'': 2}}" readonly=readonly style="width: 65px" class="form-control"></td>
+          <td><input ng-default="0.00" readonly=readonly style="width: 65px;text-align:right;" value="{{x.total | currency:'': 2}}"></td>
+          <input ng-model="x.cgstp" type="hidden">
+          <input ng-model="x.sgstp" type="hidden">
+          <input ng-model="x.igstp" type="hidden">
+          <input ng-model="x.cgstd" type="hidden">
+          <input ng-model="x.sgstd" type="hidden">
+          <input ng-model="x.igstd" type="hidden">
+          <td><input type="button" value="Remove" ng-click="removeProduct($index)" class="btn btn-danger"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input ng-model="searchCode" ng-keyup="searchEvent($event)" ng-paste="onPasteEvent($event)" class="form-control"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="14" style="text-align:right;">Total</td>
+          <td><input value="{{prodtotal | currency:'': 2}}" ng-default="0" readonly=readonly style="width: 65px;text-align:right;" class="form-control"></td>
+        </tr>
+      </table>
+    </div>
+
+  <div>
+    <h4>Freight Details</h4>
+    <div class="row form-group">
+      <div class="col-xs-4">
+      	<label for="">Mode</label>
+        <select class="form-control">
 					<option value="R">Rented Vehicle</option>
 					<option value="O">Own Vehicle</option>
-				</slelect>
-				</td>
-			</tr>
-			<tr>
-				<td>Vehicle No</td>
-				<td><input type="text" value=""/ class="form-control"></td>
-			</tr>
-			<tr>
-				<td>Vehicle Details</td>
-				<td><input type="text" value="" / class="form-control"></td>
-			</tr>
-			<tr>
-				<td>Rent Amount</td>
-				<td><input type="number" ng-model="freightAmount" ng-change="calculateGrantTotal()" class="form-control"/></td>
-			</tr>
-		</table>
+				</select>
+      </div>
+      <div class="col-xs-4">
+      	<label for="">Vehicle No</label>
+				<input type="text" value=""/ class="form-control">
+      </div>
+      <div class="col-xs-4">
+      	<label for="">Vehicle Details</label>
+				<input type="text" value=""/ class="form-control">
+      </div>
+		</div>
+		<div class="row form-group">
+      <div class="col-xs-4">
+      	<label for="">Rent Amount</label>
+				<input type="number" ng-model="freightAmount" ng-change="calculateGrantTotal()" class="form-control"/>
+      </div>
+    </div>
 	</div>
 
 	<div>
-		<table>
-			<tr>
-				<td colspan="2">Running Balance</td>
-				<td><input type="number" readonly=readonly class="form-control"></td>
-			</tr>
-		</table>
+		<div class="row form-group">
+			<div class="col-xs-4">
+				<label for="">Running Balance</label>
+				<input type="number" readonly=readonly class="form-control">
+			</div>
+		</div>
 	</div>
 	
 	<div>
-		<table>
-			<tr>
-				<td colspan="2">Handling Charges</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td >Amount</td>
-				<td><input type="number" class="form-control" ng-model="handleAmount" ng-change="calculateGrantTotal()"></td>
-			</tr>
+		<div class="row form-group">
+			<div class="col-xs-4">
+				<label for="">Handling Charges</label>
+				<input type="text" class="form-control">
+			</div>
+			<div class="col-xs-4">
+				<label for="">Amount</label>
+				<input type="number" class="form-control" ng-model="handleAmount" ng-change="calculateGrantTotal()">
+			</div>
+		</div>
+	</div>
 			
 			
-		</table>
+	
+	<div>
+		<div class="row form-group">
+			<div class="col-xs-4">
+				<label for="">Total CGST</label>
+				<input readonly=readonly value="{{prodcgsttotal | currency:'': 2}}" class="form-control">
+			</div>
+			<div class="col-xs-4">
+				<label for="">Total SGST</label>
+				<input readonly=readonly value="{{prodsgsttotal | currency:'': 2}}" class="form-control">
+			</div>
+			<div class="col-xs-4">
+				<label for="">Total IGST</label>
+				<input readonly=readonly value="{{prodigsttotal | currency:'': 2}}" class="form-control">
+			</div>
+		</div>
 	</div>
 	
 	<div>
-		<table>
-			<tr>
-				<td>Total CGST</td>
-				<td><input readonly=readonly value="{{prodcgsttotal | currency:'': 2}}" class="form-control"></td>
-			</tr>
-			<tr>
-				<td>Total SGST</td>
-				<td><input readonly=readonly value="{{prodsgsttotal | currency:'': 2}}" class="form-control"></td>
-			</tr>
-			<tr>
-				<td>Total IGST</td>
-				<td><input readonly=readonly value="{{prodigsttotal | currency:'': 2}}" class="form-control"></td>
-			</tr>
-		</table>
-	</div>
-	
-	<div>
-		<table>
-			<tr>
-				<td>Total(Inc Freight and Handling)</td>
-				<td><input readonly=readonly value="{{totalincft | currency:'': 2}}" class="form-control"></td>
-			</tr>
-			<tr>
-				<td>Discount</td>
-				<td><input type="number" ng-model="discountp" ng-keyup="discountGrandTotal()"  class="form-control"> <input type="number" ng-model="discounta" class="form-control" ng-change="calculateGrantTotal()"></td>
-			</tr>
-			<tr>
-				<td>Grand Total</td>
-				<td><input readonly=readonly value="{{grantTotal | currency:'': 2}}" class="form-control"></td>
-			</tr>
-		</table>
+		<div class="row form-group">
+			<div class="col-xs-4">
+				<label for="">Total(Inc Freight and Handling)</label>
+				<input readonly=readonly value="{{totalincft | currency:'': 2}}" class="form-control">`
+			</div>
+			<div class="col-xs-4">
+				<label for="">Discount</label>
+				<input type="number" ng-model="discountp" ng-keyup="discountGrandTotal()"  class="form-control">
+				<input type="number" ng-model="discounta" class="form-control" ng-change="calculateGrantTotal()">
+			</div>
+			<div class="col-xs-4">
+				<label for="">Grand Total</label>
+				<input readonly=readonly value="{{grantTotal | currency:'': 2}}" class="form-control">
+			</div>
+		</div>
 	</div>
     </div>
 
