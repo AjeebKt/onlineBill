@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gentelella Alela! | </title>
+
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+  
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+  </head>
+
+  <body class="nav-md" ng-app="myApp" ng-controller="myCtrl">
+    <div class="container body">
+      <div class="main_container">
+        
+        <!-- <ng-include src="'nav.html'"></ng-include> -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+        <div class="page-title">
+          <div class="title_left">
+            <h3>Sales</h3>
+          </div>
+        </div>
+        <!-- <div class="clearfix"></div> -->
+
+          <div class="row">
+	        <div class="col-xs-6">
+	            <div class="x_panel">
+					<div class="x_content">
+						<div class="form-horizontal form-label-left">
+		                    <div class="form-group">
+		                      <label for="" class="control-label col-xs-3">Supplier</label>
+		                      <div class="col-xs-9">
+			                      <select name="supplierId" ng-model="selSupplier" ng-change="getSupplierById()" class="form-control">
+			                        <option value="0">Select</option>
+			                        <option value="50408">KUNNATHAN CHIP BOARDS PVT .LTD</option>
+			                      </select>
+		                      </div>
+		                    </div>
+
+		                    <div class="form-group">
+		                      <label for="" class="control-label col-xs-3">Address</label>
+		                      <div class="col-xs-9">
+			                      <input type="text" name="" value="{{supplierData.supplierStreet}}" readonly=readonly class="form-control">
+		                      </div>
+		                    </div>
+
+		                    <div class="form-group">
+		                      <label for="" class="control-label col-xs-3">State</label>
+		                      <div class="col-xs-9">
+			                      <select ng-model="supplierData.supplierState" ng-init="0" class="form-control" readonly=readonly>
+			                        <option value="0">Select</option>
+			                        <option value="32">Kerala - 32</option>
+			                      </select>
+		                      </div>
+		                    </div>
+
+		                    <div class="form-group">
+		                      <label for="" class="control-label col-xs-3">Supplier City</label>
+		                      <div class="col-xs-9">
+			                      <input type="text" readonly=readonly class="form-control" value="{{supplierData.supplierCity}}">
+		                      </div>
+		                    </div>
+
+		                    <div class="form-group">
+		                      <label for="" class="control-label col-xs-3">Supplier Pincode</label>
+		                      <div class="col-xs-9">
+			                      <input type="text" readonly=readonly class="form-control" value="{{supplierData.supplierPincode}}">
+		                      </div>
+		                    </div>
+
+		                    <div class="form-group">
+		                      <label for="" class="control-label col-xs-3">GSTIN</label>
+		                      <div class="col-xs-9">
+			                      <input type="text" readonly=readonly class="form-control" value="{{supplierData.supplierTin}}">
+		                      </div>
+		                    </div>
+						</div>
+					</div>
+	         	</div>
+          	</div>
+
+            <div class="col-xs-6">
+                <div class="x_panel">
+					<div class="x_content">
+						<div class="form-horizontal form-label-left">
+		                    <div class="form-group">
+		                      <label for="" class="control-label col-xs-3">Voucher Number</label>
+		                      <div class="col-xs-9">
+			                      <input class="form-control" type="text">
+		                      </div>
+		                    </div>
+
+		                    <div class="form-group">
+		                      <label for="" class="control-label col-xs-3">Date</label>
+		                      <div class="col-xs-9">
+			                      <input readonly=readonly type="date" class="form-control">
+		                      </div>
+		                    </div>
+
+		                    <div class="form-group">
+		                      <label for="" class="control-label col-xs-3">Purchase Date</label>
+		                      <div class="col-xs-9">
+			                      <input readonly=readonly type="text" class="form-control">
+		                      </div>
+		                    </div>
+
+		                    <div class="form-group">
+		                      <label for="" class="control-label col-xs-3">Invoice Number</label>
+		                      <div class="col-xs-9">
+			                      <input readonly=readonly type="text" class="form-control">
+		                      </div>
+		                    </div>
+		                    <div class="form-group">
+		                      <label for="" class="control-label col-xs-3">Interstate</label>
+		                      <div class="col-xs-9">
+			                      <input readonly=readonly type="text" class="form-control" value="{{supplierData.supplierIS}}">
+		                      </div>
+		                    </div>
+		                </div>
+	                </div>
+	            </div>
+            </div>
+        </div>
+
+
+          <div class="clearfix">
+            <div class="x_panel">
+              <table class="table">
+                <tr>
+                  <th>SI</th>
+                  <th>code</th>
+                  <th>name</th>
+                  <th>unit</th>
+                  <th>price level</th>
+                  <th>Qty</th>
+                  <th>Discount</th>
+                  <th>amount</th>
+                  <th>CGST</th>
+                  <th>amount</th>
+                  <th>SGST</th>
+                  <th>amount</th>
+                  <th>IGST</th>
+                  <th>amount</th>
+                  <th>Total</th>
+                  <th></th>
+                </tr>
+
+                <tr ng-repeat="x in prodData">
+                  <td>{{$index+1}}</td>
+                  <td>{{ x.productCode }}</td>
+                  <td>{{ x.productName }}</td>
+                  <td>
+                    <select ng-model="x.unitData" ng-change="calculateTotal(x)" class="form-control">
+                      <option value="5">Pc(s)</option>
+                      <option value="6">Sq.feet</option>
+                      <option value="7">SQ.MTR</option>
+                  </select>
+                  </td>
+                  <td>
+                    <select ng-model="x.prodprice" ng-init="x.prodprice" ng-change="calculateTotal(x)" class="form-control">
+                      <option value="0">Select</option>
+                      <option ng-repeat="pl in x.priceList" value="{{pl.priceAmount}}">{{pl.priceName}}</option>
+                  </select>
+                  </td>
+                  <td><input ng-model="x.qty" ng-change="calculateTotal(x)" style="width: 36px" class="form-control"></td>
+                  <td><input type="text" name="" value="" placeholder=""></td>
+                  <td><input readonly=readonly style="width: 65px" value="{{x.amount | currency:'': 2}}" class="form-control"></td>
+                  <td>{{x.cgstp + '%'}}</td>
+                  <td><input value="{{x.cgstv | currency:'': 2}}" readonly=readonly style="width: 65px" class="form-control"></td>
+                  <td>{{x.sgstp+ '%'}}</td>
+                  <td><input value="{{x.sgstv | currency:'': 2}}" readonly=readonly style="width: 65px" class="form-control"></td>
+                  <td>{{x.igstp + '%'}}</td>
+                  <td><input value="{{x.igstv | currency:'': 2}}" readonly=readonly style="width: 65px" class="form-control"></td>
+                  <td><input ng-default="0.00" readonly=readonly style="width: 65px;text-align:right;" value="{{x.total | currency:'': 2}}"></td>
+                  <input ng-model="x.cgstp" type="hidden">
+                  <input ng-model="x.sgstp" type="hidden">
+                  <input ng-model="x.igstp" type="hidden">
+                  <input ng-model="x.cgstd" type="hidden">
+                  <input ng-model="x.sgstd" type="hidden">
+                  <input ng-model="x.igstd" type="hidden">
+                  <td> <a href="javascript:void(0)" ng-click="removeProduct($index)" class="fa fa-close"></a></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><input ng-model="searchCode" ng-keyup="searchEvent($event)" ng-paste="onPasteEvent($event)" class="form-control"></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td colspan="14" style="text-align:right;">Total</td>
+                  <td><input value="{{prodtotal | currency:'': 2}}" ng-default="0" readonly=readonly style="width: 65px;text-align:right;" class="form-control"></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+            <div class="clearfix">
+
+            <div class="x_panel">
+              <div class="row form-group">
+                <div class="col-xs-5">
+                  <label for="">Running Balance</label>
+                  <input type="number" readonly=readonly class="form-control">
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col-xs-5">
+                  <label for="">Attach Invoice</label>
+                  <input type="file" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="x_panel">
+              <h4>Freight Details</h4>
+
+              <div class="row">
+                <div class="col-xs-4 form-group">
+                  <label for="">Mode</label>
+                  <select class="form-control">
+                    <option value="R">Rented Vehicle</option>
+                    <option value="O">Own Vehicle</option>
+                  </select>
+                </div>
+                <div class="col-xs-4 form-group">
+                  <label for="">Vehicle No</label>
+                  <input type="text" value=""/ class="form-control">
+                </div>
+                <div class="col-xs-12 form-group">
+                  <label for="">Vehicle Details</label>
+                  <!-- <input type="text" value=""/ class="form-control"> -->
+                  <textarea name="" id="" cols="30" rows="3" class="form-control"></textarea>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-4 form-group">
+                  <label for="">Rent Amount</label>
+                  <input type="number" ng-model="freightAmount" ng-change="calculateGrantTotal()" class="form-control"/>
+                </div>
+                <div class="col-xs-4 form-group">
+                  <label for="">Handling Charges</label>
+                  <input type="text" class="form-control">
+                </div>
+                <div class="col-xs-4 form-group">
+                  <label for="">Amount</label>
+                  <input type="number" class="form-control" ng-model="handleAmount" ng-change="calculateGrantTotal()">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- <div class="clearfix">
+            <div class="row form-group">
+              <div class="col-xs-4">
+                <label for="">Handling Charges</label>
+                <input type="text" class="form-control">
+              </div>
+              <div class="col-xs-4">
+                <label for="">Amount</label>
+                <input type="number" class="form-control" ng-model="handleAmount" ng-change="calculateGrantTotal()">
+              </div>
+            </div>
+          </div> -->
+                
+                
+          <div class="clearfix">
+            <div class="x_panel">
+              <div class="row">
+
+              <div class="form-horizontal form-label-left">
+                <div class="col-xs-6 pull-right">
+                  <div class="form-group">
+                    <label for="" class="control-label col-md-3 col-sm-3 col-xs-12">Total CGST</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input readonly=readonly value="{{prodcgsttotal | currency:'': 2}}" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="" class="control-label col-md-3 col-sm-3 col-xs-12">Total SGST</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input readonly=readonly value="{{prodsgsttotal | currency:'': 2}}" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="" class="control-label col-md-3 col-sm-3 col-xs-12">Total IGST</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input readonly=readonly value="{{prodigsttotal | currency:'': 2}}" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="" class="control-label col-md-3 col-sm-3 col-xs-12">Total(Inc Freight and Handling)</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input readonly=readonly value="{{totalincft | currency:'': 2}}" class="form-control">`
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="" class="control-label col-md-3 col-sm-3 col-xs-12">Discount</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input type="number" ng-model="discountp" ng-keyup="discountGrandTotal()"  class="form-control">
+                      <input type="number" ng-model="discounta" class="form-control" ng-change="calculateGrantTotal()">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="" class="control-label col-md-3 col-sm-3 col-xs-12">Grand Total</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input readonly=readonly value="{{grantTotal | currency:'': 2}}" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+            </div>
+          </div>
+            
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+  
+    
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="../vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="../vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="../vendors/Flot/jquery.flot.js"></script>
+    <script src="../vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="../vendors/Flot/jquery.flot.time.js"></script>
+    <script src="../vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="../vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="../vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="../vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="../vendors/moment/min/moment.min.js"></script>
+    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.js"></script>
+
+  </body>
+</html>
